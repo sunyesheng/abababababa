@@ -20,6 +20,10 @@
           clearable
         ></el-input>
       </div>
+      <!-- 验证框 -->
+      <div class="block" style="width: 200px">
+        <el-slider v-model="value"></el-slider>
+      </div>
       <el-link type="primary" icon="el-icon-edit" @click="registadmin"
         >没有账号，请先注册</el-link
       >
@@ -65,8 +69,9 @@
 export default {
   data () {
     return {
-      username: '',
-      password: '',
+      value: 0,
+      username: '孙业盛',
+      password: '123456',
       // 用来控制对话框的开关
       dialogVisible: false,
       // 注册用户表
@@ -90,6 +95,10 @@ export default {
   methods: {
     // 点击管理员登录  清除表单
     async adminlogin () {
+      if (this.value !== 100) {
+        this.value = 0
+        return this.$message.info('拉动进度条完成验证进行登录')
+      }
       const { data: res } = await this.$http.post('admin/login', {
         adminname: this.username.trim(),
         password: this.password.trim()
@@ -97,10 +106,12 @@ export default {
       if (res.meta.status !== 200) {
         this.username = ''
         this.password = ''
+        this.value = 0
         this.$message.error('登录失败,请重新输入账号密码')
         return ''
       }
       this.$message.success('登录成功')
+      this.value = 0
       // 将用户信息存储到session中
       window.sessionStorage.setItem('username', res.data.admin.adminName)
       // 跳转到其他页面
@@ -108,6 +119,10 @@ export default {
     },
     // 点击登录按钮的时候今天跳转页面
     async userlogin () {
+      if (this.value !== 100) {
+        this.value = 0
+        return this.$message.info('拉动进度条完成验证进行登录')
+      }
       const { data: res } = await this.$http.post('user/login', {
         username: this.username,
         password: this.password
@@ -115,9 +130,11 @@ export default {
       if (res.meta.status !== 200) {
         this.username = ''
         this.password = ''
+        this.value = 0
         return this.$message.error('账号或密码错误，请重新登录')
       }
       this.$message.success('登录成功')
+      this.value = 0
       return this.$router.push('/home')
     },
     // 点击注册账号 用来注册账号
@@ -158,12 +175,12 @@ export default {
 .el-link {
   position: relative;
   float: left;
-  top: 130px;
+  top: 100px;
   left: 440px;
 }
 .btnclass {
   position: relative;
-  top: 170px;
+  top: 140px;
   right: 40px;
 }
 .el-button {
@@ -180,8 +197,8 @@ export default {
   position: absolute;
   top: 200px;
   width: 300px;
-  height: 200px;
-  margin: 200px 150px;
+  height: 100px;
+  margin: 200px 150px 0px 150px;
 }
 .el-input {
   width: 240px;
@@ -191,5 +208,11 @@ img {
   position: relative;
   left: 70px;
   top: 15px;
+}
+.block {
+  width: 200px;
+  position: relative;
+  top: 130px;
+  left: 190px;
 }
 </style>

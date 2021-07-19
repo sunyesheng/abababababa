@@ -48,9 +48,13 @@ import {
   DatePicker,
   Radio,
   RadioGroup,
-  TimePicker
+  TimePicker,
+  Slider,
+  Progress
 } from 'element-ui'
 
+Vue.use(Progress)
+Vue.use(Slider)
 Vue.use(TimePicker)
 Vue.use(Radio)
 Vue.use(RadioGroup)

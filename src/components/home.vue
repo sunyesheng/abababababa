@@ -25,7 +25,6 @@
             <el-menu-item index="/checking">审核进度</el-menu-item>
             <el-menu-item index="/upmoney">缴纳保证金</el-menu-item>
           </el-submenu>
-          <el-menu-item index="4">处理中心</el-menu-item>
           <el-menu-item index="5">功能待定</el-menu-item>
           <el-menu-item index="6">联系我们</el-menu-item>
         </el-menu>

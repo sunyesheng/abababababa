@@ -135,13 +135,19 @@ export default {
       console.log(this.checkId)
       console.log(this.form.info)
       console.log(this.value)
-      /**
-      |--------------------------------------------------
-      | 待定功能区域 用来将审核信息上传
-      |--------------------------------------------------
-      */
+      const { data: res } = await this.$http.post('infor/modifystate', {
+        informationid: this.checkId,
+        state: this.value ? 1 : 2,
+        opinion: this.form.info
+      })
+      console.log(res)
+      if (res.meta.status !== 200) {
+        return this.$message.error('审核失败，请稍后重试')
+      }
+      this.getList()
       this.checkId = 0
       this.form.info = ''
+      return this.$message.success('审核提交成功')
     }
   },
   created () {

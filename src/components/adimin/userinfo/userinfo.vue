@@ -3,8 +3,8 @@
     <!-- 面包屑 -->
     <el-breadcrumb separator-class="el-icon-arrow-right" class="bread">
       <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>资讯信息</el-breadcrumb-item>
-      <el-breadcrumb-item>资讯审核</el-breadcrumb-item>
+      <el-breadcrumb-item>成员管理</el-breadcrumb-item>
+      <el-breadcrumb-item>管理员管理</el-breadcrumb-item>
     </el-breadcrumb>
     <el-table :data="adminList" style="width: 100%" stripe height="700px">
       <el-table-column prop="adminId" label="管理员ID"></el-table-column>
