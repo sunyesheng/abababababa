@@ -18,6 +18,7 @@
           v-model="password"
           placeholder="请输入密码"
           clearable
+          type="password"
         ></el-input>
       </div>
       <!-- 验证框 -->
@@ -70,8 +71,8 @@ export default {
   data () {
     return {
       value: 0,
-      username: '孙业盛',
-      password: '123456',
+      username: '',
+      password: '',
       // 用来控制对话框的开关
       dialogVisible: false,
       // 注册用户表
@@ -133,7 +134,15 @@ export default {
         this.value = 0
         return this.$message.error('账号或密码错误，请重新登录')
       }
+      console.log(res.data.user.userState)
+      if (res.data.user.userState !== 'true') {
+        return this.$message.warning('你的账户被禁用，请联系管理员')
+      }
+      console.log(res.data)
       this.$message.success('登录成功')
+      window.sessionStorage.setItem('username', res.data.userName)
+      window.sessionStorage.setItem('userrole', res.data.userRole)
+      window.sessionStorage.setItem('userid', res.data.userid)
       this.value = 0
       return this.$router.push('/home')
     },

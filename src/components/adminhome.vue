@@ -24,8 +24,8 @@
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">公司资质审核</template>
-            <el-menu-item index="/checkcom">资质审核</el-menu-item>
-            <el-menu-item index="/checked">审核通过名单</el-menu-item>
+            <el-menu-item index="/checkcom" disabled>资质审核</el-menu-item>
+            <el-menu-item index="/checked" disabled>审核通过名单</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">交易信息审核</template>

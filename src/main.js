@@ -6,9 +6,9 @@ import axios from 'axios'
 import nprogress from 'nprogress'
 
 Vue.config.productionTip = false
-axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded'
-axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded'
+// axios.defaults.headers.post['Content-Type'] =
+//   'application/x-www-form-urlencoded'
+// axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.transformRequest = [
   function (data) {
     let ret = ''
@@ -19,7 +19,7 @@ axios.defaults.transformRequest = [
   }
 ]
 Vue.prototype.$http = axios
-axios.defaults.baseURL = 'http://127.0.0.1:8081/'
+axios.defaults.baseURL = 'http://localhost:8081/'
 // 添加拦截器 在请求拦截器显示进度条 在相应拦截器隐藏进度条
 axios.interceptors.response.use(config => {
   nprogress.done()

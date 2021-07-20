@@ -2,9 +2,9 @@
   <div>
     <!-- 面包屑 -->
     <el-breadcrumb separator-class="el-icon-arrow-right" class="bread">
-      <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>成员管理</el-breadcrumb-item>
-      <el-breadcrumb-item>管理员管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>煤炭交易信息</el-breadcrumb-item>
+      <el-breadcrumb-item>商品展示</el-breadcrumb-item>
     </el-breadcrumb>
     <el-table :data="goodsList" style="width: 100%" stripe height="700px">
       <el-table-column
@@ -18,22 +18,47 @@
       <el-table-column
         prop="goodsPrice"
         label="商品价格/万元"
-        width="100px"
+        width="130px"
       ></el-table-column>
       <el-table-column prop="transport" label="运输方式"></el-table-column>
       <el-table-column
         prop="transPrice"
         label="运输价格/万元"
-        width="100px"
+        width="130px"
       ></el-table-column>
       <el-table-column prop="quality" label="煤炭质量"></el-table-column>
       <el-table-column
         prop="qualityCertificate"
         label="质量质证书号"
-      ></el-table-column>
-      <el-table-column prop="state" label="状态"></el-table-column>
+        width="300px"
+      >
+        <template slot-scope="scope">
+          <el-link
+            type="primary"
+            @click="downloadmyfile(scope.row.qualityCertificate)"
+            >{{ scope.row.qualityCertificate }}点击下载</el-link
+          >
+        </template>
+      </el-table-column>
+      <el-table-column prop="state" label="状态">
+        <template slot-scope="scope">
+          <el-tag type="danger" v-if="scope.row.state === '1'">不可购买</el-tag>
+          <el-tag type="success" v-else>审核通过</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column prop="opinion" label="审核意见"></el-table-column>
-      <el-table-column label="操作"></el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope"
+          ><el-button
+            type="primary"
+            icon="el-icon-s-goods"
+            size="mini"
+            :disabled="scope.row.state === '1'"
+            @click="buygoods(scope.row.goodsId)"
+            >购买</el-button
+          ></template
+        >
+      </el-table-column>
     </el-table>
     <div class="block">
       <el-pagination
@@ -52,7 +77,7 @@ export default {
   data () {
     return {
       goodsList: [],
-      // 总信息条数
+      // 总信息条数 http://127.0.0.1:8081/file/download?fileName=11.zip
       total: 0,
       currentpage: 0,
       pagenum: 0,
@@ -75,7 +100,7 @@ export default {
           pagenum: this.pagenum
         })
       if (res.meta.status !== 200) {
-        return this.$message.error('获取资讯信息失败')
+        return this.$message.error('获取商品信息失败')
       }
       this.goodsList = res.data.goodsList
       this.total = res.data.total
@@ -113,6 +138,33 @@ export default {
       this.checkId = 0
       this.form.info = ''
       return this.$message.success('审核提交成功')
+    },
+    downloadmyfile (file) {
+      window.location.href = `http://127.0.0.1:8081/file/download?fileName=${file}`
+    },
+    async buygoods (id) {
+      console.log(id)
+      const data = new Date()
+      const ids = data.getHours() + '' + data.getMilliseconds() + data.getSeconds() + data.getMinutes()
+      const { data: res } = await this.$http.post('order/addorder', {
+        agreementid: ids,
+        goodsid: id,
+        acompany: '陕西煤炭',
+        bcompany: '山东联通煤炭'
+      })
+      if (res.mata.status !== 200) {
+        return this.$message.error('购买失败')
+      }
+      const { data: ref } = await this.$http.post('goods/modifySAndO', {
+        goodsid: id,
+        state: '1',
+        opinion: '已经被购买下架'
+      })
+      if (ref.meta.status !== 200) {
+        return this.$message.error('下架失败')
+      }
+      this.getList()
+      return this.$message.success('购买商品成功')
     }
   },
   created () {
