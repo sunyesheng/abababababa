@@ -192,6 +192,12 @@ export default {
       this.ruleForm.qualitycertificate = res.data.name
       return this.$message.success('上传成功')
     }
+  },
+  created () {
+    if (window.sessionStorage.getItem('loginstate') !== '1') {
+      this.$router.push('/')
+      return this.$message.error('未登录,请先登录')
+    }
   }
 }
 </script>

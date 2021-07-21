@@ -115,6 +115,7 @@ export default {
       this.value = 0
       // 将用户信息存储到session中
       window.sessionStorage.setItem('username', res.data.admin.adminName)
+      window.sessionStorage.setItem('loginstate', '1')
       // 跳转到其他页面
       this.$router.push('/adminhome')
     },
@@ -143,6 +144,7 @@ export default {
       window.sessionStorage.setItem('username', res.data.userName)
       window.sessionStorage.setItem('userrole', res.data.userRole)
       window.sessionStorage.setItem('userid', res.data.userid)
+      window.sessionStorage.setItem('loginstate', '1')
       this.value = 0
       return this.$router.push('/home')
     },

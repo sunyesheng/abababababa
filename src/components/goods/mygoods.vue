@@ -131,6 +131,10 @@ export default {
     }
   },
   created () {
+    if (window.sessionStorage.getItem('loginstate') !== '1') {
+      this.$router.push('/')
+      return this.$message.error('未登录,请先登录')
+    }
     this.getList()
   }
 }

@@ -19,7 +19,7 @@ axios.defaults.transformRequest = [
   }
 ]
 Vue.prototype.$http = axios
-axios.defaults.baseURL = 'http://localhost:8081/'
+axios.defaults.baseURL = 'http://121.5.78.195:8081/'
 // 添加拦截器 在请求拦截器显示进度条 在相应拦截器隐藏进度条
 axios.interceptors.response.use(config => {
   nprogress.done()

@@ -32,6 +32,7 @@
             type="primary"
             @click="changestate(scope.row.orderId, scope.row.state)"
             size="mini"
+            :disabled="scope.row.state === 'true'"
             >修改状态</el-button
           >
         </template>
@@ -103,6 +104,10 @@ export default {
     }
   },
   created () {
+    if (window.sessionStorage.getItem('loginstate') !== '1') {
+      this.$router.push('/')
+      return this.$message.error('未登录,请先登录')
+    }
     this.getAllList()
   }
 }

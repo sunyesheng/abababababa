@@ -26,6 +26,7 @@
             <el-menu-item index="/upmoney">缴纳保证金</el-menu-item>
           </el-submenu>
           <el-menu-item index="6" disabled>联系我们</el-menu-item>
+          <el-menu-item index="/login" @click="loginout">退出登录</el-menu-item>
         </el-menu>
       </el-header>
       <el-container>
@@ -51,6 +52,9 @@ export default {
   methods: {
     // 点击某个选项之后触发的事件
     handleSelect (key) {
+    },
+    loginout () {
+      window.sessionStorage.setItem('loginstate', '0')
     }
   }
 }

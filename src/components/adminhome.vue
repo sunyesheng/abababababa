@@ -32,6 +32,7 @@
             <el-menu-item index="/arginfo">交易信息</el-menu-item>
             <el-menu-item index="/order">订单</el-menu-item>
           </el-submenu>
+          <el-menu-item index="/login" @click="logout">退出登录</el-menu-item>
         </el-menu>
       </el-header>
       <el-container>
@@ -57,6 +58,9 @@ export default {
   methods: {
     // 点击某个选项之后触发的事件
     handleSelect (key) {
+    },
+    logout () {
+      window.sessionStorage.setItem('loginstate', '0')
     }
   }
 }
