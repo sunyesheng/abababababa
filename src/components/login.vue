@@ -73,6 +73,8 @@
 export default {
   data () {
     return {
+      // 生成一个随机数用于做登录验证
+      randomnum: parseInt(Math.random(1) * 100),
       value: 0,
       username: '',
       password: '',
@@ -99,10 +101,13 @@ export default {
   methods: {
     // 点击管理员登录  清除表单
     async adminlogin () {
-      if (this.value !== 100) {
-        this.value = 0
-        return this.$message.info('拉动进度条完成验证进行登录')
+      if (this.value !== this.randomnum) {
+        return this.$message.error('请拖动到正确位置进行登录')
       }
+      // if (this.value !== 100) {
+      //   this.value = 0
+      //   return this.$message.info('拉动进度条完成验证进行登录')
+      // }
       const { data: res } = await this.$http.post('admin/login', {
         adminname: this.username.trim(),
         password: this.password.trim()
@@ -124,10 +129,13 @@ export default {
     },
     // 点击登录按钮的时候今天跳转页面
     async userlogin () {
-      if (this.value !== 100) {
-        this.value = 0
-        return this.$message.info('拉动进度条完成验证进行登录')
+      if (this.value !== this.randomnum) {
+        return this.$message.error('请拖动到正确位置进行登录')
       }
+      // if (this.value !== 100) {
+      //   this.value = 0
+      //   return this.$message.info('拉动进度条完成验证进行登录')
+      // }
       const { data: res } = await this.$http.post('user/login', {
         username: this.username,
         password: this.password
@@ -138,11 +146,9 @@ export default {
         this.value = 0
         return this.$message.error('账号或密码错误，请重新登录')
       }
-      console.log(res.data.user.userState)
       if (res.data.user.userState !== 'true') {
         return this.$message.warning('你的账户被禁用，请联系管理员')
       }
-      console.log(res.data)
       this.$message.success('登录成功')
       window.sessionStorage.setItem('username', res.data.userName)
       window.sessionStorage.setItem('userrole', res.data.userRole)
@@ -181,6 +187,13 @@ export default {
     },
     handleClose () {
     }
+  },
+  created () {
+    this.$notify.success({
+      title: '验证数值',
+      message: `请拖动进度条至     ${this.randomnum}`,
+      showClose: true
+    })
   }
 }
 </script>

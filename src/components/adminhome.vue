@@ -3,7 +3,15 @@
     <!-- 布局容器 -->
     <el-container>
       <!--  -->
-      <el-header
+      <el-header>
+        <iframe
+          width="320"
+          height="85"
+          frameborder="0"
+          scrolling="no"
+          hspace="0"
+          src="https://i.tianqi.com/?c=code&a=getcode&id=6&py=xian&icon=1"
+        ></iframe
         ><el-menu
           :default-active="activeIndex"
           class="el-menu-demo"
@@ -24,7 +32,7 @@
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">公司资质审核</template>
-            <el-menu-item index="/checkcom" disabled>资质审核</el-menu-item>
+            <el-menu-item index="/checkcom">资质审核</el-menu-item>
             <el-menu-item index="/checked" disabled>审核通过名单</el-menu-item>
           </el-submenu>
           <el-submenu index="3">

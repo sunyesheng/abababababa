@@ -110,7 +110,6 @@ export default {
     },
     // 合同的信息通过
     async dealhetong (id) {
-      console.log(id)
       const { data: res } = await this.$http.post('agreement/modifyagreementstate', {
         agreementid: id,
         state: 1,
@@ -125,8 +124,6 @@ export default {
     },
     // 将合同信息驳回
     dangerhetong (id) {
-      console.log(id)
-      console.log(this.options[id])
       this.$confirm('此操作将驳回该合同, 是否继续?', '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',

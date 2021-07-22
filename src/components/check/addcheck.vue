@@ -143,7 +143,13 @@ export default {
           }
         ],
         companyfax: [{ required: true, message: '请输入传真', trigger: 'blur' }],
-        companyemail: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+        companyemail: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+          {
+            required: true,
+            validator: this.checkEmail,
+            trigger: 'blur'
+          }],
         companylicense: [{ required: true, message: '请输入营业执照', trigger: 'blur' }],
         companytax: [{ required: true, message: '请输入税务登记号', trigger: 'blur' }],
         companynum: [{ required: true, message: '请输入组织机构代码证号', trigger: 'blur' }],
@@ -203,11 +209,24 @@ export default {
         return callback(new Error('不能为空'))
       } else {
         const reg = /^1[3|4|5|7|8|9][0-9]\d{8}$/
-        console.log(reg.test(value))
         if (reg.test(value)) {
           callback()
         } else {
           return callback(new Error('请输入正确的手机号'))
+        }
+      }
+    },
+    // 邮箱验证规则
+    checkEmail (rule, value, callback) {
+      if (!value) {
+        callback()
+        return callback(new Error('不能为空'))
+      } else {
+        const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if (reg.test(value)) {
+          callback()
+        } else {
+          return callback(new Error('请输入正确的邮箱号'))
         }
       }
     }

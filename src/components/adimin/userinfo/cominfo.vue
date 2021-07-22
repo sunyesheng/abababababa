@@ -71,7 +71,6 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.success('查询管理员信息失败')
       }
-      console.log(res)
       this.userList = res.data.userList
       this.total = res.data.total
     }

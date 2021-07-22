@@ -130,7 +130,6 @@ export default {
     // 点击进行注册
     addAdmins () {
       this.$refs.ruleForm.validate(async valid => {
-        console.log(this.$refs.ruleForm)
         if (!valid) {
           this.$refs.ruleForm.resetFields()
           return this.$message.error('注册信息有误，请重新输入')

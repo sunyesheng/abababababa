@@ -123,15 +123,11 @@ export default {
     // 点击确定按钮时候的操作
     async checkInfoById () {
       this.dialogFormVisible = false
-      console.log(this.checkId)
-      console.log(this.form.info)
-      console.log(this.value)
       const { data: res } = await this.$http.post('infor/modifystate', {
         informationid: this.checkId,
         state: this.value ? 1 : 2,
         opinion: this.form.info
       })
-      console.log(res)
       if (res.meta.status !== 200) {
         return this.$message.error('审核失败，请稍后重试')
       }

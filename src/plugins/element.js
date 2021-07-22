@@ -51,7 +51,8 @@ import {
   TimePicker,
   Slider,
   Progress,
-  Popover
+  Popover,
+  Notification
 } from 'element-ui'
 
 Vue.use(Popover)
@@ -106,3 +107,4 @@ Vue.use(Pagination)
 Vue.use(Tooltip)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$notify = Notification

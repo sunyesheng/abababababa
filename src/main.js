@@ -4,6 +4,8 @@ import router from './router'
 import './plugins/element.js'
 import axios from 'axios'
 import nprogress from 'nprogress'
+// socket实现 文件
+// import VueSocketIO from 'vue-socket.io'
 
 Vue.config.productionTip = false
 // axios.defaults.headers.post['Content-Type'] =
@@ -35,7 +37,15 @@ axios.interceptors.request.use(
   }
 )
 Vue.config.productionTip = false
-
+// socket协议用来进行聊天室的开发
+// Vue.use(
+//   new VueSocketIO({
+//     // 控制台调试 console.log
+//     debug: true,
+//     // 连接地址 后端提供
+//     connection: 'http://127.0.0.1:3000/'
+//   })
+// )
 new Vue({
   router,
   render: h => h(App)
