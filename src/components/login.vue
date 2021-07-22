@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="back">
     <div class="loginform">
       <!-- 登录页面提示区域 -->
       <img src="../assets/162632604839859.png" alt="" />
@@ -51,7 +51,10 @@
           class="demo-ruleForm"
         >
           <el-form-item label="用户名" prop="username">
-            <el-input v-model="registruleForm.username"></el-input>
+            <el-input
+              v-model="registruleForm.username"
+              class="reginput"
+            ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input
@@ -183,6 +186,13 @@ export default {
 </script>
 
 <style scoped>
+#back {
+  position: fixed;
+  background: url('../assets/background .jpg');
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+}
 .el-link {
   position: relative;
   float: left;

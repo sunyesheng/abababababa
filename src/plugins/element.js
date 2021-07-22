@@ -50,9 +50,11 @@ import {
   RadioGroup,
   TimePicker,
   Slider,
-  Progress
+  Progress,
+  Popover
 } from 'element-ui'
 
+Vue.use(Popover)
 Vue.use(Progress)
 Vue.use(Slider)
 Vue.use(TimePicker)

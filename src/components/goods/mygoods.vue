@@ -110,6 +110,9 @@ export default {
   methods: {
     // 初始化获取信息
     async getList () {
+      if (this.goodid === '') {
+        return this.getAllList()
+      }
       // 发送请求获取资讯列表
       const { data: res } = await this.$http.post('goods/getallgoodstouser',
         {
@@ -124,10 +127,26 @@ export default {
     },
     handleCurrentChange (num) {
       this.pagenum = num
+      if (this.goodid === '') {
+        return this.getAllList()
+      }
       this.getList()
     },
     serchid () {
       this.getList()
+    },
+    // 初始化获取信息
+    async getAllList () {
+      // 发送请求获取资讯列表
+      const { data: res } = await this.$http.post('goods/getallgoods',
+        {
+          pagenum: this.pagenum
+        })
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取商品信息失败')
+      }
+      this.goodsList = res.data.goodsList
+      this.total = res.data.total
     }
   },
   created () {
@@ -135,7 +154,7 @@ export default {
       this.$router.push('/')
       return this.$message.error('未登录,请先登录')
     }
-    this.getList()
+    this.getAllList()
   }
 }
 </script>

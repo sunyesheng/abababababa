@@ -48,16 +48,17 @@
       </el-table-column>
       <el-table-column prop="opinion" label="审核意见"></el-table-column>
       <el-table-column label="操作">
-        <template slot-scope="scope"
-          ><el-button
+        <template slot-scope="scope">
+          <el-button
             type="primary"
             icon="el-icon-s-goods"
             size="mini"
             :disabled="scope.row.state === '1'"
+            slot="reference"
             @click="buygoods(scope.row.goodsId)"
             >购买</el-button
-          ></template
-        >
+          >
+        </template>
       </el-table-column>
     </el-table>
     <div class="block">
@@ -140,10 +141,9 @@ export default {
       return this.$message.success('审核提交成功')
     },
     downloadmyfile (file) {
-      window.location.href = `http://127.0.0.1:8081/file/download?fileName=${file}`
+      window.location.href = `http://121.5.78.195:8081/file/download?fileName=${file}`
     },
     async buygoods (id) {
-      console.log(id)
       const data = new Date()
       const ids = data.getHours() + '' + data.getMilliseconds() + data.getSeconds() + data.getMinutes()
       const { data: res } = await this.$http.post('order/addorder', {
@@ -164,6 +164,7 @@ export default {
         return this.$message.error('下架失败')
       }
       this.getList()
+      this.myvisible = false
       return this.$message.success('购买商品成功')
     }
   },

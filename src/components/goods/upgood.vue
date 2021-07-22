@@ -100,7 +100,7 @@
 export default {
   data () {
     return {
-      uploadUrl: 'http://localhost:8081/file/upload',
+      uploadUrl: 'http://121.5.78.195:8081/file/upload',
       fileList: [],
       options: [{
         value: '火车运输',
