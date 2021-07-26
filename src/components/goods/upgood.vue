@@ -24,7 +24,7 @@
             placeholder="请输入负责人姓名"
           ></el-input>
         </el-form-item>
-        <el-form-item label="负责人" prop="proarea">
+        <el-form-item label="供货地点" prop="proarea">
           <el-input
             v-model="ruleForm.proarea"
             placeholder="请输入供货地点"
